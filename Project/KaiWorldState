@@ -1,0 +1,47 @@
+
+# KaiWorldState.py
+# Tracks world simulation state for Kai Engine V3 (AI-driven)
+# Author: K. Hutton (Simon)
+
+class KaiWorldState:
+    def __init__(self):
+        # Core simulation values
+        self.entropy = 0               # 0 - 100 (how close to world collapse)
+        self.years_passed = 0          # Time progression
+        self.party_loyalty = 70        # 0 - 100 (average party loyalty)
+        self.faction_reputation = 50   # 0 - 100 (standing with dominant faction)
+        self.player_traits = {
+            "empathy": 70,             # Example trait
+            "resilience": 70,          # Example trait
+            "adaptability": 70          # Example trait
+        }
+        self.memory_log = []           # Stores major player actions / events
+
+    def update_entropy(self, amount):
+        self.entropy = min(100, max(0, self.entropy + amount))
+
+    def advance_years(self, years=1):
+        self.years_passed += years
+
+    def adjust_loyalty(self, amount):
+        self.party_loyalty = min(100, max(0, self.party_loyalty + amount))
+
+    def adjust_reputation(self, amount):
+        self.faction_reputation = min(100, max(0, self.faction_reputation + amount))
+
+    def adjust_trait(self, trait, amount):
+        if trait in self.player_traits:
+            self.player_traits[trait] = min(100, max(0, self.player_traits[trait] + amount))
+
+    def log_event(self, event_description):
+        self.memory_log.append(event_description)
+
+    def summary(self):
+        return {
+            "Entropy": self.entropy,
+            "Years Passed": self.years_passed,
+            "Party Loyalty": self.party_loyalty,
+            "Faction Reputation": self.faction_reputation,
+            "Traits": self.player_traits,
+            "Memory": self.memory_log
+        }
